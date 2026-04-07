@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frontier Region — Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Outfit', 'Segoe UI', sans-serif; background: #f0f2f5; color: #1a1a1a; font-size: 13px; }
+
+  .page { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+  /* SAFETY BANNER */
+  .safety-banner {
+    background: #fff;
+    border-left: 5px solid #dc2626;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .safety-banner .icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .safety-banner .content { flex: 1; }
+  .safety-banner .tag { font-size: 10px; font-weight: 700; color: #dc2626; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .safety-banner .title { font-size: 14px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+  .safety-banner .body { font-size: 12px; color: #555; margin-bottom: 6px; line-height: 1.5; }
+  .safety-banner .missing { font-size: 11px; color: #dc2626; font-weight: 600; }
+  .btn-red { background: #dc2626; color: #fff; border: none; border-radius: 6px; padding: 8px 16px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; font-family: 'Outfit', sans-serif; text-decoration: none; display: inline-block; }
+  .btn-red:hover { background: #b91c1c; }
+
+  /* GRID LAYOUTS */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 18px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 18px; }
+
+  /* CARDS */
+  .card { background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); overflow: hidden; }
+  .card-header { padding: 10px 14px; background: #f8f9fa; border-bottom: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; }
+  .card-header .label { font-size: 11px; font-weight: 700; color: #555; letter-spacing: 0.8px; text-transform: uppercase; }
+  .card-body { padding: 14px; }
+
+  /* METRIC CARDS */
+  .metric-card { background: #fff; border-radius: 8px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .metric-card .m-label { font-size: 10px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
+  .metric-card .m-value { font-size: 22px; font-weight: 700; margin-bottom: 3px; }
+  .metric-card .m-sub { font-size: 10px; color: #999; }
+
+  /* BRANCH SELECTOR */
+  .branch-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .branch-bar .section-title { font-size: 11px; font-weight: 700; color: #555; letter-spacing: 0.8px; text-transform: uppercase; }
+  .branch-bar select { border: 1px solid #d1d5db; border-radius: 6px; padding: 5px 10px; font-size: 12px; font-family: 'Outfit', sans-serif; background: #fff; cursor: pointer; color: #333; }
+
+  /* ANNOUNCEMENTS */
+  .announcement { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; }
+  .announcement:last-child { border-bottom: none; }
+  .ann-header { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+  .ann-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+  .ann-date { font-size: 10px; color: #999; }
+  .ann-body { font-size: 11px; color: #666; line-height: 1.5; }
+  .badge { font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-info { background: #eff6ff; color: #1d4ed8; }
+  .badge-action { background: #f5f3ff; color: #7c3aed; }
+  .badge-safety { background: #fef2f2; color: #dc2626; }
+
+  /* CONTACTS */
+  .contact-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+  .contact-item:last-child { border-bottom: none; }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
+  .contact-name { font-size: 12px; font-weight: 600; color: #1a1a1a; }
+  .contact-role { font-size: 11px; color: #888; }
+  .contact-phone { font-size: 11px; color: #1d4ed8; }
+
+  /* TOOLS GRID */
+  .tool-btn { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; color: #333; transition: box-shadow 0.15s, border-color 0.15s; }
+  .tool-btn:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-color: #0f2044; }
+  .tool-btn .t-icon { font-size: 18px; flex-shrink: 0; }
+  .tool-btn .t-label { font-size: 12px; font-weight: 600; color: #1a1a1a; }
+
+  /* SECTION LABELS */
+  .section-label { font-size: 11px; font-weight: 700; color: #555; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 10px; }
+
+  /* STATUS DOTS */
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+  .dot-green { background: #16a34a; }
+  .dot-red { background: #dc2626; }
+  .dot-orange { background: #ea580c; }
+
+  select { font-family: 'Outfit', sans-serif; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- SAFETY BANNER -->
+  <div class="safety-banner">
+    <span class="icon">🚨</span>
+    <div class="content">
+      <div class="tag">April Safety Reminder</div>
+      <div class="title">Forklift Pre-Operation Inspection</div>
+      <div class="body">Every forklift operator must complete a pre-operation inspection checklist before each shift. Checklists must be signed and kept on file at the branch for 90 days. Missing or incomplete logs are an OSHA recordable finding.</div>
+      <div class="missing">Still missing: OC04, OC06, CL03, CL05 — Submit your April safety walk via the Forms page by April 30.</div>
+    </div>
+    <a href="/sites/FrontierRegion/SitePages/Forms.aspx" class="btn-red">Submit Walk</a>
+  </div>
+
+  <!-- BRANCH METRICS -->
+  <div class="branch-bar">
+    <div class="section-label">Your Branch Metrics</div>
+    <select id="branchSelect" onchange="updateMetrics()">
+      <optgroup label="O'Connor">
+        <option value="OC01">O'Connor - Main</option>
+        <option value="OC02">O'Connor - North</option>
+        <option value="OC03">O'Connor - South</option>
+        <option value="OC04">O'Connor - East</option>
+        <option value="OC05">O'Connor - West</option>
+        <option value="OC06">O'Connor - Central</option>
+        <option value="OC07">O'Connor - Plaza</option>
+      </optgroup>
+      <optgroup label="C&L">
+        <option value="CL01">C&L - Downtown</option>
+        <option value="CL02">C&L - Midtown</option>
+        <option value="CL03">C&L - Northland</option>
+        <option value="CL04">C&L - South KC</option>
+        <option value="CL05">C&L - Overland Park</option>
+        <option value="CL06">C&L - Lenexa</option>
+        <option value="CL07">C&L - Lee's Summit</option>
+      </optgroup>
+      <optgroup label="Comfort Air / CAD">
+        <option value="CA01">Comfort Air - Main</option>
+        <option value="CA02">Comfort Air - North</option>
+        <option value="CA03">Comfort Air - East</option>
+        <option value="CA04">Comfort Air - West</option>
+      </optgroup>
+      <optgroup label="WSM">
+        <option value="WSM">Wholesale Sheet Metal</option>
+      </optgroup>
+    </select>
+  </div>
+  <div class="grid-5" id="metricsGrid">
+    <div class="metric-card"><div class="m-label">YTD Sales</div><div class="m-value" id="m-ytd" style="color:#0f2044">$4.8M</div><div class="m-sub">Budget: $4.6M</div></div>
+    <div class="metric-card"><div class="m-label">vs Budget</div><div class="m-value" id="m-budget" style="color:#16a34a">+4.8%</div><div class="m-sub" id="m-budget-sub">Ahead of plan</div></div>
+    <div class="metric-card"><div class="m-label">Gross Margin</div><div class="m-value" id="m-gm" style="color:#1d4ed8">32.4%</div><div class="m-sub">YTD blended</div></div>
+    <div class="metric-card"><div class="m-label">Safety Score</div><div class="m-value" id="m-safety" style="color:#16a34a">94%</div><div class="m-sub" id="m-safety-sub">Walk submitted</div></div>
+    <div class="metric-card"><div class="m-label">Open Escalations</div><div class="m-value" id="m-esc" style="color:#ea580c">2</div><div class="m-sub" id="m-esc-sub">Needs attention</div></div>
+  </div>
+
+  <!-- ANNOUNCEMENTS + CONTACTS -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><span class="label">Announcements</span></div>
+      <div class="announcement">
+        <div class="ann-header"><span class="ann-title">Trinity Logistics — Go-Live Complete</span><span class="badge badge-info">Info</span><span class="ann-date">Apr 7</span></div>
+        <div class="ann-body">Trinity Logistics 3PL integration is now live across all branches. Contact Ben with any order routing questions.</div>
+      </div>
+      <div class="announcement">
+        <div class="ann-header"><span class="ann-title">Proton CRM Training — Apr 13–17</span><span class="badge badge-action">Action</span><span class="ann-date">Apr 13</span></div>
+        <div class="ann-body">End-user training this week. Ben is regional admin. Check your calendar for your branch session time.</div>
+      </div>
+      <div class="announcement">
+        <div class="ann-header"><span class="ann-title">Daily Safety Walks — 100% Required</span><span class="badge badge-safety">Safety</span><span class="ann-date">Apr 1</span></div>
+        <div class="ann-body">All branches must complete and log a safety walk every day. CL03 and CL05 currently below compliance.</div>
+      </div>
+      <div class="announcement">
+        <div class="ann-header"><span class="ann-title">Q1 Scorecard Published</span><span class="badge badge-info">Info</span><span class="ann-date">Mar 31</span></div>
+        <div class="ann-body">Q1 2026 branch scorecard is now available. Top performer: CA01 at 104.9% of budget.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="label">Key Contacts</span></div>
+      <div class="card-body">
+        <div class="contact-item">
+          <div class="avatar" style="background:#0f2044">BB</div>
+          <div><div class="contact-name">Ben Byler</div><div class="contact-role">Director, Operations Excellence</div><div class="contact-phone">816-555-0101</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="avatar" style="background:#0f4a2a">MH</div>
+          <div><div class="contact-name">Margot Harris</div><div class="contact-role">HR Business Partner</div><div class="contact-phone">816-555-0110</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="avatar" style="background:#3b1f6e">JB</div>
+          <div><div class="contact-name">Jennie Bryan</div><div class="contact-role">Regional Vice President</div><div class="contact-phone">816-555-0115</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="avatar" style="background:#1f3545">DO</div>
+          <div><div class="contact-name">David O'Boyle</div><div class="contact-role">Director, Regional Safety</div><div class="contact-phone">816-555-0120</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOOLS & RESOURCES -->
+  <div class="section-label">Tools &amp; Resources</div>
+  <div class="grid-4">
+    <a href="https://www.paycor.com" target="_blank" class="tool-btn"><span class="t-icon">💰</span><span class="t-label">Paycor</span></a>
+    <a href="https://www.vorex.com" target="_blank" class="tool-btn"><span class="t-icon">🖥️</span><span class="t-label">Vorex IT</span></a>
+    <a href="https://www.phocassoftware.com" target="_blank" class="tool-btn"><span class="t-icon">📊</span><span class="t-label">Phocas</span></a>
+    <a href="https://www.proton.ai" target="_blank" class="tool-btn"><span class="t-icon">🎯</span><span class="t-label">Proton CRM</span></a>
+    <a href="https://learning.marcone.com" target="_blank" class="tool-btn"><span class="t-icon">🎓</span><span class="t-label">Marcone Learning</span></a>
+    <a href="https://www.concursolutions.com" target="_blank" class="tool-btn"><span class="t-icon">✈️</span><span class="t-label">Concur</span></a>
+    <a href="https://app.safetyculture.com" target="_blank" class="tool-btn"><span class="t-icon">🛡️</span><span class="t-label">iAuditor</span></a>
+    <a href="https://marcone.sharepoint.com" target="_blank" class="tool-btn"><span class="t-icon">🏢</span><span class="t-label">mSupply Portal</span></a>
+  </div>
+
+</div>
+
+<script>
+const BRANCHES = {
+  OC01: { ytd: 4820000, budget: 4600000, gm: 32.4, safety: 94, esc: 2 },
+  OC02: { ytd: 3210000, budget: 3100000, gm: 31.8, safety: 88, esc: 1 },
+  OC03: { ytd: 2890000, budget: 3000000, gm: 30.2, safety: 100, esc: 0 },
+  OC04: { ytd: 2650000, budget: 2700000, gm: 29.8, safety: 76, esc: 3 },
+  OC05: { ytd: 3140000, budget: 3050000, gm: 33.1, safety: 100, esc: 1 },
+  OC06: { ytd: 1980000, budget: 2100000, gm: 28.9, safety: 82, esc: 2 },
+  OC07: { ytd: 2420000, budget: 2300000, gm: 31.5, safety: 94, esc: 0 },
+  CL01: { ytd: 3670000, budget: 3500000, gm: 34.2, safety: 100, esc: 1 },
+  CL02: { ytd: 2940000, budget: 3100000, gm: 32.7, safety: 88, esc: 2 },
+  CL03: { ytd: 2180000, budget: 2200000, gm: 31.4, safety: 0, esc: 4 },
+  CL04: { ytd: 1890000, budget: 1950000, gm: 30.8, safety: 94, esc: 1 },
+  CL05: { ytd: 3420000, budget: 3300000, gm: 35.1, safety: 0, esc: 0 },
+  CL06: { ytd: 2760000, budget: 2700000, gm: 33.8, safety: 82, esc: 2 },
+  CL07: { ytd: 2050000, budget: 2100000, gm: 31.9, safety: 100, esc: 1 },
+  CA01: { ytd: 5140000, budget: 4900000, gm: 36.8, safety: 100, esc: 1 },
+  CA02: { ytd: 3280000, budget: 3200000, gm: 35.2, safety: 94, esc: 0 },
+  CA03: { ytd: 2910000, budget: 3000000, gm: 34.6, safety: 88, esc: 2 },
+  CA04: { ytd: 2540000, budget: 2600000, gm: 33.9, safety: 76, esc: 1 },
+  WSM:  { ytd: 6840000, budget: 6500000, gm: 28.3, safety: 100, esc: 0 },
+};
+
+function fmt(n) { return n >= 1000000 ? '$' + (n/1000000).toFixed(1) + 'M' : '$' + (n/1000).toFixed(0) + 'K'; }
+function pct(a,b) { return (((a-b)/b)*100).toFixed(1); }
+
+function updateMetrics() {
+  const code = document.getElementById('branchSelect').value;
+  const b = BRANCHES[code];
+  const vs = parseFloat(pct(b.ytd, b.budget));
+  const pos = vs >= 0;
+
+  document.getElementById('m-ytd').textContent = fmt(b.ytd);
+  document.getElementById('m-ytd').nextElementSibling.textContent = 'Budget: ' + fmt(b.budget);
+
+  const budgetEl = document.getElementById('m-budget');
+  budgetEl.textContent = (pos ? '+' : '') + vs + '%';
+  budgetEl.style.color = pos ? '#16a34a' : '#dc2626';
+  document.getElementById('m-budget-sub').textContent = pos ? 'Ahead of plan' : 'Behind plan';
+
+  document.getElementById('m-gm').textContent = b.gm + '%';
+
+  const safetyEl = document.getElementById('m-safety');
+  safetyEl.textContent = b.safety + '%';
+  safetyEl.style.color = b.safety === 100 ? '#16a34a' : b.safety === 0 ? '#dc2626' : '#ea580c';
+  document.getElementById('m-safety-sub').textContent = b.safety === 100 ? '✓ Compliant' : 'Walk missing';
+
+  const escEl = document.getElementById('m-esc');
+  escEl.textContent = b.esc;
+  escEl.style.color = b.esc === 0 ? '#16a34a' : b.esc >= 3 ? '#dc2626' : '#ea580c';
+  document.getElementById('m-esc-sub').textContent = b.esc === 0 ? 'All clear' : 'Needs attention';
+}
+</script>
+</body>
+</html>
